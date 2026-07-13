@@ -1,0 +1,69 @@
+{
+    "bg3-hud-crucible": {
+        "Settings": {
+            "ShowItemNames": {
+                "Name": "Show Action Names",
+                "Hint": "Display action names below hotbar icons."
+            },
+            "ShowItemUses": {
+                "Name": "Show Action Costs",
+                "Hint": "Display action point costs on hotbar icons."
+            },
+            "DefaultPortraitImageSource": {
+                "Name": "Default Portrait Image Source",
+                "Hint": "Choose which image new actors use in the HUD before an actor-specific preference is set."
+            },
+            "PortraitSource": {
+                "Token": "Token Image",
+                "Actor": "Character Portrait"
+            }
+        },
+        "Menu": {
+            "UseTokenImage": "Use Token Image",
+            "UseCharacterPortrait": "Use Character Portrait"
+        },
+        "Context": {
+            "Use": "Use Action",
+            "AddFavorite": "Add to Favourites",
+            "RemoveFavorite": "Remove from Favourites",
+            "OpenItem": "Open Source Item",
+            "Remove": "Remove from Hotbar"
+        },
+        "Notifications": {
+            "ActionNotFound": "That action is no longer available on this actor.",
+            "NoActor": "No actor is currently selected."
+        },
+        "Filters": {
+            "Strike": "Strikes",
+            "Spell": "Spells",
+            "Movement": "Movement",
+            "Defend": "Defend",
+            "Favorites": "Favourites",
+            "Action": "Action",
+            "Actions": "Actions"
+        },
+        "Actions": {
+            "Rest": "Rest",
+            "EndTurn": "End Turn"
+        },
+        "Info": {
+            "Abilities": "Abilities",
+            "Skills": "Skills",
+            "NoSkills": "No skills available.",
+            "NoSkillsForAbility": "No skills for this ability."
+        },
+        "AutoPopulate": {
+            "Groups": {
+                "Combat": "Combat",
+                "Actions": "Actions"
+            },
+            "ItemTypes": {
+                "AllActions": "All Actions",
+                "Favorites": "Favourites",
+                "Strikes": "Strikes",
+                "Spells": "Spells",
+                "Movement": "Movement"
+            }
+        }
+    }
+}
