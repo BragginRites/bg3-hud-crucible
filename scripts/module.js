@@ -10,12 +10,14 @@ import { CrucibleInfoContainer } from './components/containers/CrucibleInfoConta
 import { CrucibleAutoPopulate } from './features/CrucibleAutoPopulate.js';
 import { CrucibleAutoSort } from './features/CrucibleAutoSort.js';
 import { CrucibleMenuBuilder } from './components/menus/CrucibleMenuBuilder.js';
-import { buildActionCellData, parseActionIdFromDrag } from './utils/actionCell.js';
+import { buildActionCellData, parseActionIdFromDrag, resolveTokenDocument } from './utils/actionCell.js';
 import { applyCrucibleTooltipHost, initCrucibleHudTooltips } from './utils/crucibleTooltips.js';
+import { createLogger } from '/modules/bg3-hud-core/scripts/utils/logger.js';
 
 const MODULE_ID = 'bg3-hud-crucible';
+const log = createLogger('bg3-hud-crucible');
 
-console.log('BG3 HUD Crucible | Loading adapter');
+log.debug('Loading adapter');
 
 Hooks.once('init', () => {
     registerSettings();
@@ -23,7 +25,7 @@ Hooks.once('init', () => {
 
 Hooks.on('bg3HudReady', async (BG3HUD_API) => {
     if (game.system.id !== 'crucible') {
-        console.warn('BG3 HUD Crucible | Not running Crucible system, skipping registration');
+        log.warn('Not running Crucible system, skipping registration');
         return;
     }
 
@@ -214,7 +216,7 @@ class CrucibleAdapter {
         try {
             await actor.useAction(data.actionId, { dialog, token });
         } catch (error) {
-            console.error('BG3 HUD Crucible | Action use failed:', error);
+            log.error('Action use failed:', error);
         }
     }
 
@@ -243,14 +245,6 @@ class CrucibleAdapter {
     }
 
     _getTokenDocument(actor) {
-        const hotbarToken = ui.BG3HUD_APP?.currentToken;
-        if (hotbarToken?.actor?.id === actor.id) {
-            return hotbarToken.document;
-        }
-        const tokens = actor.getActiveTokens();
-        if (tokens.length === 1) return tokens[0].document;
-        const controlled = tokens.filter(t => t.controlled);
-        if (controlled.length === 1) return controlled[0].document;
-        return tokens[0]?.document ?? null;
+        return resolveTokenDocument(actor);
     }
 }

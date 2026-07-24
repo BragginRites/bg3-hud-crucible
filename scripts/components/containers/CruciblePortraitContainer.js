@@ -1,4 +1,8 @@
+import { createLogger } from '/modules/bg3-hud-core/scripts/utils/logger.js';
+import { resolveUseTokenImage } from '/modules/bg3-hud-core/scripts/utils/portraitImage.js';
+
 const MODULE_ID = 'bg3-hud-crucible';
+const log = createLogger('bg3-hud-crucible');
 
 /**
  * Portrait container with Crucible health/morale resource paths.
@@ -8,9 +12,7 @@ export async function createCruciblePortraitContainer() {
 
     return class CruciblePortraitContainer extends PortraitContainer {
         _useTokenImage() {
-            const pref = this.actor?.getFlag(MODULE_ID, 'useTokenImage');
-            if (pref !== undefined) return pref;
-            return game.settings.get(MODULE_ID, 'defaultPortraitImageSource') !== 'portrait';
+            return resolveUseTokenImage(this.actor, MODULE_ID);
         }
 
         getPortraitImage() {
@@ -32,7 +34,7 @@ export async function createCruciblePortraitContainer() {
                     const infoElement = await this.infoContainer.render();
                     this.element.appendChild(infoElement);
                 } catch (error) {
-                    console.warn('BG3 HUD Crucible | Info container render failed', error);
+                    log.warn('Info container render failed', error);
                 }
             }
 

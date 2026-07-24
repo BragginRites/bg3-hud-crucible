@@ -1,6 +1,25 @@
 const ACTION_UUID_PREFIX = 'crucible-action:';
 
 /**
+ * Resolve the most appropriate token document for an actor, preferring the
+ * hotbar's current token, then a sole active token, then a sole controlled
+ * token, then the first active token.
+ * @param {Actor} actor
+ * @returns {TokenDocument|null}
+ */
+export function resolveTokenDocument(actor) {
+    const hotbarToken = ui.BG3HUD_APP?.currentToken;
+    if (hotbarToken?.actor?.id === actor.id) {
+        return hotbarToken.document;
+    }
+    const tokens = actor.getActiveTokens();
+    if (tokens.length === 1) return tokens[0].document;
+    const controlled = tokens.filter(t => t.controlled);
+    if (controlled.length === 1) return controlled[0].document;
+    return tokens[0]?.document ?? null;
+}
+
+/**
  * Stable hotbar uuid for a Crucible action (not a Foundry document uuid).
  * @param {Actor} actor
  * @param {string} actionId

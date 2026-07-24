@@ -1,6 +1,9 @@
 import { ActionButtonsContainer } from '/modules/bg3-hud-core/scripts/components/containers/ActionButtonsContainer.js';
+import { createLogger } from '/modules/bg3-hud-core/scripts/utils/logger.js';
+import { resolveTokenDocument } from '../../utils/actionCell.js';
 
 const MODULE_ID = 'bg3-hud-crucible';
+const log = createLogger('bg3-hud-crucible');
 
 /**
  * End turn and rest controls for Crucible.
@@ -21,7 +24,7 @@ export class CrucibleActionButtonsContainer extends ActionButtonsContainer {
             key: 'end-turn',
             classes: ['end-turn-button'],
             icon: 'fas fa-stopwatch',
-            label: '',
+            label: game.i18n.localize(`${MODULE_ID}.Actions.EndTurn`),
             tooltip: game.i18n.localize(`${MODULE_ID}.Actions.EndTurn`),
             tooltipDirection: 'LEFT',
             visible: () => !!game.combat?.started &&
@@ -44,7 +47,7 @@ export class CrucibleActionButtonsContainer extends ActionButtonsContainer {
                 try {
                     await this.actor.useAction('rest', { dialog: true, token });
                 } catch (error) {
-                    console.error('BG3 HUD Crucible | Rest failed:', error);
+                    log.error('Rest failed:', error);
                 }
             }
         });
@@ -53,14 +56,6 @@ export class CrucibleActionButtonsContainer extends ActionButtonsContainer {
     }
 
     _resolveTokenDocument() {
-        const hotbarToken = ui.BG3HUD_APP?.currentToken;
-        if (hotbarToken?.actor?.id === this.actor.id) {
-            return hotbarToken.document;
-        }
-        const tokens = this.actor.getActiveTokens();
-        if (tokens.length === 1) return tokens[0].document;
-        const controlled = tokens.filter(t => t.controlled);
-        if (controlled.length === 1) return controlled[0].document;
-        return tokens[0]?.document ?? null;
+        return resolveTokenDocument(this.actor);
     }
 }

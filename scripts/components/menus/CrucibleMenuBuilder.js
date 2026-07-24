@@ -1,4 +1,5 @@
 import { buildActionCellData } from '../../utils/actionCell.js';
+import { resolveUseTokenImage } from '/modules/bg3-hud-core/scripts/utils/portraitImage.js';
 
 const MODULE_ID = 'bg3-hud-crucible';
 
@@ -14,9 +15,7 @@ export class CrucibleMenuBuilder {
         const actor = portraitContainer.actor;
         if (!actor) return [];
 
-        const actorPreference = actor.getFlag(MODULE_ID, 'useTokenImage');
-        const defaultUseToken = game.settings.get(MODULE_ID, 'defaultPortraitImageSource') !== 'portrait';
-        const useTokenImage = actorPreference !== undefined ? actorPreference : defaultUseToken;
+        const useTokenImage = resolveUseTokenImage(actor, MODULE_ID);
 
         return [
             {

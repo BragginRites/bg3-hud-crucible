@@ -1,6 +1,8 @@
 import { InfoContainer } from '/modules/bg3-hud-core/scripts/components/containers/InfoContainer.js';
+import { createLogger } from '/modules/bg3-hud-core/scripts/utils/logger.js';
 
 const MODULE_ID = 'bg3-hud-crucible';
+const log = createLogger('bg3-hud-crucible');
 
 const CRUCIBLE_ABILITIES = {
     strength: 'STR',
@@ -127,7 +129,7 @@ export class CrucibleInfoContainer extends InfoContainer {
         try {
             await this.actor.rollSkill(skillId, { dialog: true, chatMessage: true });
         } catch (error) {
-            console.error('BG3 HUD Crucible | Skill roll failed:', error);
+            log.error('Skill roll failed:', error);
         }
     }
 

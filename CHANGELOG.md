@@ -1,3 +1,16 @@
+## [0.6.0] - 2026-07-24
+
+Requires **bg3-hud-core 0.6.0**.
+
+Housekeeping release, plus a fix for players not seeing their settings menu.
+
+### Fixed
+- **Players can open the Display menu**: The Display settings menu was locked to GMs, so players couldn't set their own preferences (item names, item uses, portrait source). It's now available to everyone, and each player's choices apply only to their own view.
+
+### Changed
+- **Quieter console**: Routine console messages are now hidden unless you turn on the new Debug Logging setting in the Core module. Warnings and errors still show.
+- **Under-the-hood cleanup**: Consolidated a little duplicated logic. No visible change.
+
 ## [0.4.1] - 2026-06-17
 
 Requires **bg3-hud-core 0.4.1**.
