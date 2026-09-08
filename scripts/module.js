@@ -4,7 +4,8 @@
 
 import { registerSettings } from './utils/settings.js';
 import { createCruciblePortraitContainer } from './components/containers/CruciblePortraitContainer.js';
-import { CrucibleActionButtonsContainer } from './components/containers/CrucibleActionButtonsContainer.js';
+import { getCrucibleRests } from './components/containers/CrucibleActionButtonsContainer.js';
+import { ActiveEffectsContainer } from '/modules/bg3-hud-core/scripts/components/containers/ActiveEffectsContainer.js';
 import { CrucibleFilterContainer } from './components/containers/CrucibleFilterContainer.js';
 import { CrucibleInfoContainer } from './components/containers/CrucibleInfoContainer.js';
 import { CrucibleAutoPopulate } from './features/CrucibleAutoPopulate.js';
@@ -32,10 +33,13 @@ Hooks.on('bg3HudReady', async (BG3HUD_API) => {
     const CruciblePortraitContainer = await createCruciblePortraitContainer();
     const adapter = new CrucibleAdapter();
 
-    BG3HUD_API.registerPortraitContainer(CruciblePortraitContainer);
-    BG3HUD_API.registerActionButtonsContainer(CrucibleActionButtonsContainer);
-    BG3HUD_API.registerFilterContainer(CrucibleFilterContainer);
-    BG3HUD_API.registerInfoContainer(CrucibleInfoContainer);
+    BG3HUD_API.registerNamedHudParts({
+        portrait: CruciblePortraitContainer,
+        filter: CrucibleFilterContainer,
+        characterInfo: CrucibleInfoContainer,
+        activeEffects: ActiveEffectsContainer,
+        rest: getCrucibleRests
+    });
     BG3HUD_API.registerAdapter(adapter);
     BG3HUD_API.registerMenuBuilder('crucible', CrucibleMenuBuilder, { adapter });
 
