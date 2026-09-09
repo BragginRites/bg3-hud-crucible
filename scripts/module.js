@@ -86,10 +86,6 @@ class CrucibleAdapter {
         ];
     }
 
-    async onAdapterFlagsChanged() {
-        return false;
-    }
-
     transformActionToCellData(action, actor) {
         if (!action || !actor) return null;
         return buildActionCellData(action, actor);
