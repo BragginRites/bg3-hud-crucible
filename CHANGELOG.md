@@ -5,6 +5,7 @@ Requires **bg3-hud-core 0.7.0**.
 Keeps Crucible on the same HUD as that Core update. Selecting a creature and changes such as health follow it. Crucible still handles its own targeting.
 
 ### Changed
+- **This Crucible generation**: This update runs on Crucible 0.x. It will not load on Crucible 1.
 - **In step with Core**: The bar shows for the creature you select, and small changes update the part that changed.
 
 ## [0.6.0] - 2026-08-25
